@@ -44,26 +44,26 @@ function trackWhatsAppConversion(source = 'unknown') {
     console.log(`WhatsApp conversion tracked from: ${source}`);
 }
 
-// Track phone call conversion
-function trackPhoneConversion(source = 'unknown') {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {
-            send_to: `${CONVERSION_CONFIG.googleAdsId}/${CONVERSION_CONFIG.conversions.phone}`,
-            value: 1.0,
-            currency: 'ARS',
-            transaction_id: generateTransactionId()
-        });
-        
-        // GA4 Event
-        gtag('event', 'phone_conversion', {
-            event_category: 'conversion',
-            event_label: source,
-            value: 1
-        });
-    }
-    
-    console.log(`Phone conversion tracked from: ${source}`);
-}
+// Track phone call conversion - REMOVED (client requested to remove phone calls)
+// function trackPhoneConversion(source = 'unknown') {
+//     if (typeof gtag !== 'undefined') {
+//         gtag('event', 'conversion', {
+//             send_to: `${CONVERSION_CONFIG.googleAdsId}/${CONVERSION_CONFIG.conversions.phone}`,
+//             value: 1.0,
+//             currency: 'ARS',
+//             transaction_id: generateTransactionId()
+//         });
+//         
+//         // GA4 Event
+//         gtag('event', 'phone_conversion', {
+//             event_category: 'conversion',
+//             event_label: source,
+//             value: 1
+//         });
+//     }
+//     
+//     console.log(`Phone conversion tracked from: ${source}`);
+// }
 
 // Track form submission conversion
 function trackFormConversion(source = 'unknown') {
@@ -112,9 +112,9 @@ function trackClickWithConversion(element, conversionType, source) {
             case 'whatsapp':
                 trackWhatsAppConversion(source);
                 break;
-            case 'phone':
-                trackPhoneConversion(source);
-                break;
+            // case 'phone': // REMOVED - client requested to remove phone calls
+            //     trackPhoneConversion(source);
+            //     break;
             case 'form':
                 trackFormConversion(source);
                 break;
@@ -135,14 +135,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Track phone button clicks
-    const phoneButtons = document.querySelectorAll('a[href^="tel:"]');
-    phoneButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const source = getSourceFromElement(this);
-            trackClickWithConversion(this, 'phone', source);
-        });
-    });
+    // Track phone button clicks - REMOVED (client requested to remove phone calls)
+    // const phoneButtons = document.querySelectorAll('a[href^="tel:"]');
+    // phoneButtons.forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         const source = getSourceFromElement(this);
+    //         trackClickWithConversion(this, 'phone', source);
+    //     });
+    // });
 });
 
 // Get source section from element
