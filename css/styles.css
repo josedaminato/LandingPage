@@ -317,21 +317,35 @@ h3 { font-size: 1.5rem; }
 .carousel-item {
     min-width: 100%;
     flex-shrink: 0;
-    padding: 2rem;
+    padding: 1.5rem;
     background: #ffffff;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     text-align: center;
     color: #111827;
+    height: auto;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .carousel-item h3 {
     color: #111827;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
 }
 
 .carousel-item p {
     color: #4b5563;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.carousel-item .service-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
 }
 
 .carousel-controls {
