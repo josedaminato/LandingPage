@@ -840,6 +840,21 @@ h3 { font-size: 1.5rem; }
         width: 100%;
         max-width: 350px;
         justify-content: center;
+        align-items: center;
+    }
+    
+    .contact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .contact-icon svg {
+        width: 24px;
+        height: 24px;
     }
     
     .whatsapp-float {
