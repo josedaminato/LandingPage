@@ -189,8 +189,11 @@ h3 { font-size: 1.5rem; }
 
 .hero-stats {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .stat {
@@ -199,14 +202,17 @@ h3 { font-size: 1.5rem; }
 
 .stat-number {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: #1e40af;
+    line-height: 1.2;
 }
 
 .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: #4b5563;
+    font-weight: 500;
+    margin-top: 0.25rem;
 }
 
 .trust-badges {
@@ -784,6 +790,19 @@ h3 { font-size: 1.5rem; }
     
     .hero {
         text-align: center;
+    }
+    
+    .hero-stats {
+        max-width: 250px;
+        gap: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
     }
     
     .hero-actions {
