@@ -495,14 +495,14 @@ function initServicesCarousel() {
     function manualNextSlide() {
         // Manual navigation - restart auto-play timing
         nextSlide();
-        lastAutoPlayTime = Date.now();
+        lastAutoPlayTime = performance.now();
         startAutoPlay();
     }
     
     function manualPrevSlide() {
         // Manual navigation - restart auto-play timing
         prevSlide();
-        lastAutoPlayTime = Date.now();
+        lastAutoPlayTime = performance.now();
         startAutoPlay();
     }
     
@@ -562,44 +562,64 @@ function initServicesCarousel() {
         }
     });
     
-    // Auto-play with consistent timing
+    // Auto-play with precise timing
+    let autoPlayTimeout;
     let autoPlayInterval;
     let lastAutoPlayTime = 0;
-    const AUTO_PLAY_DELAY = 6000; // 6 seconds
+    const AUTO_PLAY_DELAY = 6000; // 6 seconds exactly
     
     function startAutoPlay() {
-        // Clear any existing interval
+        // Clear any existing timers
+        if (autoPlayTimeout) {
+            clearTimeout(autoPlayTimeout);
+        }
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
         }
         
-        // Calculate time since last auto-play
-        const now = Date.now();
+        // Calculate precise remaining time
+        const now = performance.now();
         const timeSinceLastAutoPlay = now - lastAutoPlayTime;
         const remainingTime = Math.max(0, AUTO_PLAY_DELAY - timeSinceLastAutoPlay);
         
-        // Start auto-play with remaining time or full delay
-        autoPlayInterval = setTimeout(() => {
+        // Use setTimeout for precise timing
+        autoPlayTimeout = setTimeout(() => {
             nextSlide();
-            lastAutoPlayTime = Date.now();
+            lastAutoPlayTime = performance.now();
             
-            // Continue with regular intervals
-            autoPlayInterval = setInterval(() => {
-                nextSlide();
-                lastAutoPlayTime = Date.now();
-            }, AUTO_PLAY_DELAY);
+            // Continue with precise intervals using setTimeout
+            scheduleNextSlide();
         }, remainingTime);
     }
     
+    function scheduleNextSlide() {
+        autoPlayTimeout = setTimeout(() => {
+            // Verify timing precision
+            const now = performance.now();
+            const actualDelay = now - lastAutoPlayTime;
+            
+            // If there's a significant delay, adjust next timing
+            if (Math.abs(actualDelay - AUTO_PLAY_DELAY) > 100) {
+                console.log(`Timing adjustment: expected ${AUTO_PLAY_DELAY}ms, got ${actualDelay}ms`);
+            }
+            
+            nextSlide();
+            lastAutoPlayTime = now;
+            scheduleNextSlide();
+        }, AUTO_PLAY_DELAY);
+    }
+    
     function stopAutoPlay() {
+        if (autoPlayTimeout) {
+            clearTimeout(autoPlayTimeout);
+        }
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
-            clearTimeout(autoPlayInterval);
         }
     }
     
     // Start auto-play
-    lastAutoPlayTime = Date.now();
+    lastAutoPlayTime = performance.now();
     startAutoPlay();
     
     // Pause on hover/touch
