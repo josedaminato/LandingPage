@@ -436,16 +436,7 @@ function initServicesCarousel() {
     const items = carouselTrack.querySelectorAll('.carousel-item');
     const totalCards = items.length;
     let currentIndex = 0;
-    
-    // Duplicate items for infinite scroll effect
-    items.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.classList.add('carousel-item-clone');
-        carouselTrack.appendChild(clone);
-    });
-    
-    const allItems = carouselTrack.querySelectorAll('.carousel-item');
-    const totalItems = allItems.length;
+    let isReversing = false; // Track if we're going backwards
     
     // Create dots
     for (let i = 0; i < totalCards; i++) {
@@ -465,13 +456,12 @@ function initServicesCarousel() {
         carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         carouselTrack.style.transform = `translateX(${translateX}%)`;
         
-        // Update dots (only for original items)
-        const dotIndex = currentIndex % totalCards;
+        // Update dots
         dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === dotIndex);
+            dot.classList.toggle('active', index === currentIndex);
         });
         
-        // Update buttons (always enabled for infinite scroll)
+        // Update buttons
         prevBtn.disabled = false;
         nextBtn.disabled = false;
     }
@@ -482,37 +472,49 @@ function initServicesCarousel() {
     }
     
     function nextSlide() {
-        currentIndex++;
-        updateCarousel();
-        
-        // Reset to beginning when reaching the end of original items
-        if (currentIndex >= totalCards) {
-            setTimeout(() => {
-                carouselTrack.style.transition = 'none';
-                currentIndex = 0;
-                carouselTrack.style.transform = `translateX(0%)`;
-                setTimeout(() => {
-                    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                }, 50);
-            }, 600);
+        if (isReversing) {
+            // Going backwards: 4 -> 3 -> 2 -> 1
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                // Reached the beginning, start going forward again
+                isReversing = false;
+                currentIndex = 1;
+            }
+        } else {
+            // Going forward: 1 -> 2 -> 3 -> 4
+            if (currentIndex < totalCards - 1) {
+                currentIndex++;
+            } else {
+                // Reached the end, start going backwards
+                isReversing = true;
+                currentIndex = totalCards - 2;
+            }
         }
+        updateCarousel();
     }
     
     function prevSlide() {
-        currentIndex--;
-        updateCarousel();
-        
-        // Reset to end when going before the beginning
-        if (currentIndex < 0) {
-            setTimeout(() => {
-                carouselTrack.style.transition = 'none';
-                currentIndex = totalCards - 1;
-                carouselTrack.style.transform = `translateX(-${(totalCards - 1) * 100}%)`;
-                setTimeout(() => {
-                    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                }, 50);
-            }, 600);
+        if (isReversing) {
+            // Going backwards: 4 -> 3 -> 2 -> 1
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                // Reached the beginning, start going forward again
+                isReversing = false;
+                currentIndex = 1;
+            }
+        } else {
+            // Going forward: 1 -> 2 -> 3 -> 4
+            if (currentIndex < totalCards - 1) {
+                currentIndex++;
+            } else {
+                // Reached the end, start going backwards
+                isReversing = true;
+                currentIndex = totalCards - 2;
+            }
         }
+        updateCarousel();
     }
     
     // Event listeners
