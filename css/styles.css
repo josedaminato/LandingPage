@@ -329,7 +329,7 @@ h3 { font-size: 1.5rem; }
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 0.5rem;
+    margin: 0;
 }
 
 .carousel-item h3 {
@@ -773,14 +773,30 @@ h3 { font-size: 1.5rem; }
         text-align: center;
     }
     
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
     .hero-actions .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .cta-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
     
     .cta-actions .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 300px;
+        justify-content: center;
     }
     
     .guarantee-text h2,
@@ -801,6 +817,16 @@ h3 { font-size: 1.5rem; }
     .contact-info h2,
     .contact-info p {
         text-align: center;
+    }
+    
+    .contact-methods {
+        align-items: center;
+    }
+    
+    .contact-method {
+        width: 100%;
+        max-width: 350px;
+        justify-content: center;
     }
     
     .whatsapp-float {
