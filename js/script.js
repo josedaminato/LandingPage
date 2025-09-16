@@ -462,17 +462,17 @@ function initServicesCarousel() {
         return; // Desktop view - no carousel needed
     }
     
-    const carousel = document.getElementById('servicesCarousel');
+    const carouselTrack = document.querySelector('.carousel-track');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const dotsContainer = document.getElementById('carouselDots');
     
-    if (!carousel || !prevBtn || !nextBtn || !dotsContainer) {
+    if (!carouselTrack || !prevBtn || !nextBtn || !dotsContainer) {
         return; // Carousel not found
     }
     
-    const cards = carousel.querySelectorAll('.service-card');
-    const totalCards = cards.length;
+    const items = carouselTrack.querySelectorAll('.carousel-item');
+    const totalCards = items.length;
     let currentIndex = 0;
     
     // Create dots
@@ -488,7 +488,7 @@ function initServicesCarousel() {
     
     function updateCarousel() {
         const translateX = -currentIndex * 100;
-        carousel.style.transform = `translateX(${translateX}%)`;
+        carouselTrack.style.transform = `translateX(${translateX}%)`;
         
         // Update dots
         dots.forEach((dot, index) => {
@@ -528,13 +528,13 @@ function initServicesCarousel() {
     let startY = 0;
     let isDragging = false;
     
-    carousel.addEventListener('touchstart', function(e) {
+    carouselTrack.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         isDragging = true;
     }, { passive: true });
     
-    carousel.addEventListener('touchmove', function(e) {
+    carouselTrack.addEventListener('touchmove', function(e) {
         if (!isDragging) return;
         
         const currentX = e.touches[0].clientX;
@@ -548,7 +548,7 @@ function initServicesCarousel() {
         }
     }, { passive: false });
     
-    carousel.addEventListener('touchend', function(e) {
+    carouselTrack.addEventListener('touchend', function(e) {
         if (!isDragging) return;
         
         const endX = e.changedTouches[0].clientX;
@@ -567,7 +567,7 @@ function initServicesCarousel() {
     }, { passive: true });
     
     // Keyboard navigation
-    carousel.addEventListener('keydown', function(e) {
+    carouselTrack.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowLeft') {
             prevSlide();
         } else if (e.key === 'ArrowRight') {
