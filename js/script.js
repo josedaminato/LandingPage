@@ -492,9 +492,23 @@ function initServicesCarousel() {
         updateCarousel();
     }
     
+    function manualNextSlide() {
+        // Manual navigation - restart auto-play timing
+        nextSlide();
+        lastAutoPlayTime = Date.now();
+        startAutoPlay();
+    }
+    
+    function manualPrevSlide() {
+        // Manual navigation - restart auto-play timing
+        prevSlide();
+        lastAutoPlayTime = Date.now();
+        startAutoPlay();
+    }
+    
     // Event listeners
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', manualNextSlide);
+    prevBtn.addEventListener('click', manualPrevSlide);
     
     // Touch/swipe support
     let startX = 0;
@@ -530,9 +544,9 @@ function initServicesCarousel() {
         
         if (Math.abs(diffX) > threshold) {
             if (diffX > 0) {
-                nextSlide();
+                manualNextSlide();
             } else {
-                prevSlide();
+                manualPrevSlide();
             }
         }
         
@@ -542,26 +556,50 @@ function initServicesCarousel() {
     // Keyboard navigation
     carouselTrack.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowLeft') {
-            prevSlide();
+            manualPrevSlide();
         } else if (e.key === 'ArrowRight') {
-            nextSlide();
+            manualNextSlide();
         }
     });
     
-    // Auto-play (optional)
+    // Auto-play with consistent timing
     let autoPlayInterval;
+    let lastAutoPlayTime = 0;
+    const AUTO_PLAY_DELAY = 6000; // 6 seconds
     
     function startAutoPlay() {
-        autoPlayInterval = setInterval(() => {
+        // Clear any existing interval
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+        }
+        
+        // Calculate time since last auto-play
+        const now = Date.now();
+        const timeSinceLastAutoPlay = now - lastAutoPlayTime;
+        const remainingTime = Math.max(0, AUTO_PLAY_DELAY - timeSinceLastAutoPlay);
+        
+        // Start auto-play with remaining time or full delay
+        autoPlayInterval = setTimeout(() => {
             nextSlide();
-        }, 6000);
+            lastAutoPlayTime = Date.now();
+            
+            // Continue with regular intervals
+            autoPlayInterval = setInterval(() => {
+                nextSlide();
+                lastAutoPlayTime = Date.now();
+            }, AUTO_PLAY_DELAY);
+        }, remainingTime);
     }
     
     function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            clearTimeout(autoPlayInterval);
+        }
     }
     
     // Start auto-play
+    lastAutoPlayTime = Date.now();
     startAutoPlay();
     
     // Pause on hover/touch
