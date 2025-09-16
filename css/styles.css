@@ -857,6 +857,10 @@ h3 { font-size: 1.5rem; }
         height: 24px;
     }
     
+    .contact-method {
+        padding: 1rem !important;
+    }
+    
     .whatsapp-float {
         width: 56px;
         height: 56px;
