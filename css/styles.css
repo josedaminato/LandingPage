@@ -839,7 +839,7 @@ h3 { font-size: 1.5rem; }
     .contact-method {
         width: 100%;
         max-width: 350px;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
     }
     
