@@ -129,12 +129,26 @@ function initWhatsAppTracking() {
 // SERVICES CAROUSEL
 // ========================================
 function initServicesCarousel() {
-    if (window.innerWidth > 767) return;
+    console.log('Initializing carousel, window width:', window.innerWidth);
+    
+    if (window.innerWidth > 767) {
+        console.log('Desktop view - carousel not needed');
+        return;
+    }
+    
+    console.log('Mobile view - initializing carousel');
     
     const carouselTrack = document.querySelector('.carousel-track');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const dotsContainer = document.getElementById('carouselDots');
+    
+    console.log('Carousel elements found:', {
+        carouselTrack: !!carouselTrack,
+        prevBtn: !!prevBtn,
+        nextBtn: !!nextBtn,
+        dotsContainer: !!dotsContainer
+    });
     
     if (!carouselTrack || !prevBtn || !nextBtn || !dotsContainer) {
         console.log('Carousel elements not found');
@@ -159,6 +173,7 @@ function initServicesCarousel() {
     
     function updateCarousel() {
         const translateX = -currentIndex * 100;
+        console.log('Updating carousel, index:', currentIndex, 'translateX:', translateX);
         carouselTrack.style.transform = `translateX(${translateX}%)`;
         
         dots.forEach((dot, index) => {
@@ -175,6 +190,7 @@ function initServicesCarousel() {
     }
     
     function nextSlide() {
+        console.log('Next slide clicked, current index:', currentIndex, 'total items:', totalItems);
         if (currentIndex < totalItems - 1) {
             currentIndex++;
             updateCarousel();
@@ -182,6 +198,7 @@ function initServicesCarousel() {
     }
     
     function prevSlide() {
+        console.log('Prev slide clicked, current index:', currentIndex);
         if (currentIndex > 0) {
             currentIndex--;
             updateCarousel();
