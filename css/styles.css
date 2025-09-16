@@ -718,15 +718,15 @@ h3 { font-size: 1.5rem; }
 }
 
 .whatsapp-text {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     white-space: nowrap;
-    display: none;
+    display: block;
 }
 
 @media (min-width: 768px) {
     .whatsapp-text {
-        display: block;
+        font-size: 0.875rem;
     }
     
     .whatsapp-float {
@@ -779,7 +779,7 @@ h3 { font-size: 1.5rem; }
     }
     
     .contact-content {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 4rem;
     }
     
@@ -908,15 +908,15 @@ h3 { font-size: 1.5rem; }
     }
     
     .whatsapp-float {
-        width: 56px;
-        height: 56px;
         bottom: 1rem;
         right: 1rem;
-        padding: 12px;
-        min-width: 56px;
+        padding: 10px 16px;
+        min-width: auto;
+        height: auto;
     }
     
     .whatsapp-text {
-        display: none;
+        display: block;
+        font-size: 0.7rem;
     }
 }
