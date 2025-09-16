@@ -457,10 +457,15 @@ function initTouchOptimizations() {
 
 // Services Carousel
 function initServicesCarousel() {
+    console.log('Initializing carousel, window width:', window.innerWidth);
+    
     // Only initialize carousel on mobile devices
     if (window.innerWidth > 767) {
+        console.log('Desktop view - carousel not needed');
         return; // Desktop view - no carousel needed
     }
+    
+    console.log('Mobile view - initializing carousel');
     
     const carouselTrack = document.querySelector('.carousel-track');
     const prevBtn = document.getElementById('prevBtn');
@@ -468,6 +473,12 @@ function initServicesCarousel() {
     const dotsContainer = document.getElementById('carouselDots');
     
     if (!carouselTrack || !prevBtn || !nextBtn || !dotsContainer) {
+        console.log('Carousel elements not found:', {
+            carouselTrack: !!carouselTrack,
+            prevBtn: !!prevBtn,
+            nextBtn: !!nextBtn,
+            dotsContainer: !!dotsContainer
+        });
         return; // Carousel not found
     }
     
