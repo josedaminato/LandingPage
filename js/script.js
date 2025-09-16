@@ -437,6 +437,16 @@ function initServicesCarousel() {
     const totalCards = items.length;
     let currentIndex = 0;
     
+    // Duplicate items for infinite scroll effect
+    items.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.classList.add('carousel-item-clone');
+        carouselTrack.appendChild(clone);
+    });
+    
+    const allItems = carouselTrack.querySelectorAll('.carousel-item');
+    const totalItems = allItems.length;
+    
     // Create dots
     for (let i = 0; i < totalCards; i++) {
         const dot = document.createElement('button');
@@ -452,43 +462,56 @@ function initServicesCarousel() {
         const translateX = -currentIndex * 100;
         
         // Add smooth transition
-        carouselTrack.style.transition = 'transform 0.5s ease-in-out';
+        carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         carouselTrack.style.transform = `translateX(${translateX}%)`;
         
-        // Update dots
+        // Update dots (only for original items)
+        const dotIndex = currentIndex % totalCards;
         dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
+            dot.classList.toggle('active', index === dotIndex);
         });
         
-        // Update buttons
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex === totalCards - 1;
+        // Update buttons (always enabled for infinite scroll)
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
     }
     
     function goToSlide(index) {
-        currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+        currentIndex = index;
         updateCarousel();
     }
     
     function nextSlide() {
-        if (currentIndex < totalCards - 1) {
-            currentIndex++;
-            updateCarousel();
-        } else {
-            // Smooth loop back to start
-            currentIndex = 0;
-            updateCarousel();
+        currentIndex++;
+        updateCarousel();
+        
+        // Reset to beginning when reaching the end of original items
+        if (currentIndex >= totalCards) {
+            setTimeout(() => {
+                carouselTrack.style.transition = 'none';
+                currentIndex = 0;
+                carouselTrack.style.transform = `translateX(0%)`;
+                setTimeout(() => {
+                    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, 50);
+            }, 600);
         }
     }
     
     function prevSlide() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateCarousel();
-        } else {
-            // Smooth loop to end
-            currentIndex = totalCards - 1;
-            updateCarousel();
+        currentIndex--;
+        updateCarousel();
+        
+        // Reset to end when going before the beginning
+        if (currentIndex < 0) {
+            setTimeout(() => {
+                carouselTrack.style.transition = 'none';
+                currentIndex = totalCards - 1;
+                carouselTrack.style.transform = `translateX(-${(totalCards - 1) * 100}%)`;
+                setTimeout(() => {
+                    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, 50);
+            }, 600);
         }
     }
     
@@ -553,12 +576,8 @@ function initServicesCarousel() {
     
     function startAutoPlay() {
         autoPlayInterval = setInterval(() => {
-            if (currentIndex < totalCards - 1) {
-                nextSlide();
-            } else {
-                goToSlide(0);
-            }
-        }, 4000);
+            nextSlide();
+        }, 6000);
     }
     
     function stopAutoPlay() {
