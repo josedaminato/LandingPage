@@ -472,47 +472,46 @@ function initServicesCarousel() {
     }
     
     function nextSlide() {
+        console.log(`nextSlide called - currentIndex: ${currentIndex}, isReversing: ${isReversing}, totalCards: ${totalCards}`);
+        
         if (isReversing) {
             // Going backwards: 4 -> 3 -> 2 -> 1
             if (currentIndex > 0) {
                 currentIndex--;
+                console.log(`Going backwards to: ${currentIndex}`);
             } else {
                 // Reached the beginning, start going forward again
                 isReversing = false;
                 currentIndex = 1;
+                console.log(`Reached beginning, switching to forward mode, going to: ${currentIndex}`);
             }
         } else {
             // Going forward: 1 -> 2 -> 3 -> 4
             if (currentIndex < totalCards - 1) {
                 currentIndex++;
+                console.log(`Going forward to: ${currentIndex}`);
             } else {
                 // Reached the end, start going backwards
                 isReversing = true;
                 currentIndex = totalCards - 2;
+                console.log(`Reached end, switching to reverse mode, going to: ${currentIndex}`);
             }
         }
         updateCarousel();
     }
     
     function prevSlide() {
-        if (isReversing) {
-            // Going backwards: 4 -> 3 -> 2 -> 1
-            if (currentIndex > 0) {
-                currentIndex--;
-            } else {
-                // Reached the beginning, start going forward again
+        // Manual navigation - go to previous slide
+        if (currentIndex > 0) {
+            currentIndex--;
+            // If we're at the beginning, switch to forward mode
+            if (currentIndex === 0) {
                 isReversing = false;
-                currentIndex = 1;
             }
         } else {
-            // Going forward: 1 -> 2 -> 3 -> 4
-            if (currentIndex < totalCards - 1) {
-                currentIndex++;
-            } else {
-                // Reached the end, start going backwards
-                isReversing = true;
-                currentIndex = totalCards - 2;
-            }
+            // Go to last slide
+            currentIndex = totalCards - 1;
+            isReversing = true;
         }
         updateCarousel();
     }
