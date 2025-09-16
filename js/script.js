@@ -125,9 +125,6 @@ function trackEvent(eventName, parameters = {}) {
     if (typeof gtag !== 'undefined') {
         gtag('event', eventName, parameters);
     }
-    
-    // Also track in console for debugging
-    console.log('Event tracked:', eventName, parameters);
 }
 
 // Track conversions
@@ -141,9 +138,6 @@ function trackConversion(eventName, parameters = {}) {
             ...parameters
         });
     }
-    
-    // Also track in console for debugging
-    console.log('Conversion tracked:', eventName, parameters);
 }
 
 // Get page section for tracking
@@ -298,7 +292,6 @@ function debounce(func, wait) {
 // Performance optimization
 const debouncedResize = debounce(function() {
     // Handle resize events
-    console.log('Window resized');
 }, 250);
 
 window.addEventListener('resize', debouncedResize);
@@ -408,15 +401,10 @@ function initTouchOptimizations() {
 
 // Services Carousel
 function initServicesCarousel() {
-    console.log('Initializing carousel, window width:', window.innerWidth);
-    
     // Only initialize carousel on mobile devices
     if (window.innerWidth > 767) {
-        console.log('Desktop view - carousel not needed');
         return; // Desktop view - no carousel needed
     }
-    
-    console.log('Mobile view - initializing carousel');
     
     const carouselTrack = document.querySelector('.carousel-track');
     const prevBtn = document.getElementById('prevBtn');
@@ -424,12 +412,6 @@ function initServicesCarousel() {
     const dotsContainer = document.getElementById('carouselDots');
     
     if (!carouselTrack || !prevBtn || !nextBtn || !dotsContainer) {
-        console.log('Carousel elements not found:', {
-            carouselTrack: !!carouselTrack,
-            prevBtn: !!prevBtn,
-            nextBtn: !!nextBtn,
-            dotsContainer: !!dotsContainer
-        });
         return; // Carousel not found
     }
     
@@ -472,29 +454,23 @@ function initServicesCarousel() {
     }
     
     function nextSlide() {
-        console.log(`nextSlide called - currentIndex: ${currentIndex}, isReversing: ${isReversing}, totalCards: ${totalCards}`);
-        
         if (isReversing) {
             // Going backwards: 4 -> 3 -> 2 -> 1
             if (currentIndex > 0) {
                 currentIndex--;
-                console.log(`Going backwards to: ${currentIndex}`);
             } else {
                 // Reached the beginning, start going forward again
                 isReversing = false;
                 currentIndex = 1;
-                console.log(`Reached beginning, switching to forward mode, going to: ${currentIndex}`);
             }
         } else {
             // Going forward: 1 -> 2 -> 3 -> 4
             if (currentIndex < totalCards - 1) {
                 currentIndex++;
-                console.log(`Going forward to: ${currentIndex}`);
             } else {
                 // Reached the end, start going backwards
                 isReversing = true;
                 currentIndex = totalCards - 2;
-                console.log(`Reached end, switching to reverse mode, going to: ${currentIndex}`);
             }
         }
         updateCarousel();
