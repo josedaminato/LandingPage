@@ -302,6 +302,17 @@ h3 { font-size: 1.5rem; }
     display: none;
 }
 
+/* Forzar carrusel en móvil */
+@media (max-width: 767px) {
+    .services-carousel {
+        display: block !important;
+    }
+    
+    .services-grid {
+        display: none !important;
+    }
+}
+
 .carousel-container {
     position: relative;
     overflow: hidden;
