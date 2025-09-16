@@ -11,25 +11,15 @@
 ### **2. Google Ads Conversion Tracking**
 1. Ve a [Google Ads](https://ads.google.com)
 2. Ve a **Herramientas y configuración** > **Conversiones**
-3. Crea 3 conversiones:
+3. Crea 1 conversión:
 
-#### **Conversión 1: WhatsApp**
+#### **Conversión: WhatsApp**
 - **Nombre**: WhatsApp Contact
 - **Categoría**: Contacto
 - **Valor**: 1 ARS
 - **Copia el ID de conversión** (formato: AW-XXXXXXXXXX)
 
-#### **Conversión 2: Llamadas**
-- **Nombre**: Phone Call
-- **Categoría**: Contacto  
-- **Valor**: 1 ARS
-- **Copia el ID de conversión**
-
-#### **Conversión 3: Formularios**
-- **Nombre**: Form Submission
-- **Categoría**: Contacto
-- **Valor**: 1 ARS
-- **Copia el ID de conversión**
+> **Nota**: Solo se rastrea WhatsApp ya que se eliminaron las opciones de llamada y formularios
 
 ### **3. Configurar el Código**
 Edita `js/conversion-tracking.js` y reemplaza:
@@ -39,9 +29,7 @@ const CONVERSION_CONFIG = {
     ga4Id: 'G-TU_ID_AQUI',           // Tu GA4 ID
     googleAdsId: 'AW-TU_ID_AQUI',    // Tu Google Ads ID
     conversions: {
-        whatsapp: 'TU_LABEL_WHATSAPP',  // Label de conversión WhatsApp
-        phone: 'TU_LABEL_PHONE',        // Label de conversión Teléfono
-        form: 'TU_LABEL_FORM'           // Label de conversión Formulario
+        whatsapp: 'TU_LABEL_WHATSAPP'  // Label de conversión WhatsApp
     }
 };
 ```
@@ -50,8 +38,6 @@ const CONVERSION_CONFIG = {
 
 ### **Conversiones Automáticas:**
 - ✅ Clics en botones de WhatsApp
-- ✅ Clics en botones de teléfono
-- ✅ Envío de formularios (si los agregas)
 
 ### **Eventos de Engagement:**
 - ✅ Visualización de página

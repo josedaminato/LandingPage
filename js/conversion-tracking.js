@@ -12,9 +12,9 @@ const CONVERSION_CONFIG = {
     
     // Conversion Labels
     conversions: {
-        whatsapp: 'XXXXXXXXXX', // WhatsApp conversion label
-        phone: 'XXXXXXXXXX',    // Phone call conversion label
-        form: 'XXXXXXXXXX'      // Form submission conversion label
+        whatsapp: 'XXXXXXXXXX'  // WhatsApp conversion label
+        // phone: 'XXXXXXXXXX',    // REMOVED - no phone calls
+        // form: 'XXXXXXXXXX'      // REMOVED - no forms
     }
 };
 
@@ -65,26 +65,26 @@ function trackWhatsAppConversion(source = 'unknown') {
 //     console.log(`Phone conversion tracked from: ${source}`);
 // }
 
-// Track form submission conversion
-function trackFormConversion(source = 'unknown') {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {
-            send_to: `${CONVERSION_CONFIG.googleAdsId}/${CONVERSION_CONFIG.conversions.form}`,
-            value: 1.0,
-            currency: 'ARS',
-            transaction_id: generateTransactionId()
-        });
-        
-        // GA4 Event
-        gtag('event', 'form_conversion', {
-            event_category: 'conversion',
-            event_label: source,
-            value: 1
-        });
-    }
-    
-    console.log(`Form conversion tracked from: ${source}`);
-}
+// Track form submission conversion - REMOVED (no forms on site)
+// function trackFormConversion(source = 'unknown') {
+//     if (typeof gtag !== 'undefined') {
+//         gtag('event', 'conversion', {
+//             send_to: `${CONVERSION_CONFIG.googleAdsId}/${CONVERSION_CONFIG.conversions.form}`,
+//             value: 1.0,
+//             currency: 'ARS',
+//             transaction_id: generateTransactionId()
+//         });
+//         
+//         // GA4 Event
+//         gtag('event', 'form_conversion', {
+//             event_category: 'conversion',
+//             event_label: source,
+//             value: 1
+//         });
+//     }
+//     
+//     console.log(`Form conversion tracked from: ${source}`);
+// }
 
 // ========================================
 // UTILITY FUNCTIONS
@@ -115,9 +115,9 @@ function trackClickWithConversion(element, conversionType, source) {
             // case 'phone': // REMOVED - client requested to remove phone calls
             //     trackPhoneConversion(source);
             //     break;
-            case 'form':
-                trackFormConversion(source);
-                break;
+            // case 'form': // REMOVED - no forms on site
+            //     trackFormConversion(source);
+            //     break;
         }
     }, 1000);
 }
