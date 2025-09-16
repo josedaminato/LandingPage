@@ -536,6 +536,12 @@ h3 { font-size: 1.5rem; }
     gap: 3rem;
 }
 
+.contact-info {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .contact-info h2 {
     margin-bottom: 1.5rem;
     color: #111827;
@@ -545,6 +551,7 @@ h3 { font-size: 1.5rem; }
     font-size: 1.125rem;
     color: #4b5563;
     margin-bottom: 1rem;
+    line-height: 1.6;
 }
 
 .contact-methods {
