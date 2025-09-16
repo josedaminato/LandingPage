@@ -1,0 +1,27 @@
+{
+    "name": "Accidentes y Defensa - Abogados en Mendoza",
+    "short_name": "Accidentes y Defensa",
+    "description": "Abogados especialistas en accidentes de tránsito, laborales y reclamos a aseguradoras en Mendoza",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1e40af",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["legal", "business", "professional"],
+    "lang": "es",
+    "dir": "ltr"
+}

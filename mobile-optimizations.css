@@ -1,0 +1,231 @@
+/* Mobile-Specific Optimizations */
+
+/* Prevent text size adjust on mobile */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Improve touch targets */
+@media (max-width: 767px) {
+    /* Ensure minimum touch target size of 44px */
+    .btn,
+    .contact-method,
+    .whatsapp-float,
+    .nav-actions a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Improve button spacing */
+    .hero-actions .btn,
+    .cta-actions .btn {
+        margin-bottom: var(--spacing-2);
+    }
+    
+    /* Optimize form inputs for mobile */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: var(--radius-md);
+    }
+    
+    /* Improve focus states for mobile */
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Optimize scrolling */
+    body {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+    }
+    
+    /* Improve performance */
+    * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}
+
+/* iOS specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    .btn,
+    .contact-method {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    input,
+    textarea {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: var(--radius-md);
+    }
+}
+
+/* Android specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
+    .btn,
+    .contact-method {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 767px) and (orientation: landscape) {
+    .hero {
+        padding: var(--spacing-6) 0;
+    }
+    
+    .hero-title {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-3);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-4);
+    }
+    
+    .hero-actions {
+        flex-direction: row;
+        gap: var(--spacing-3);
+    }
+    
+    .hero-actions .btn {
+        flex: 1;
+        max-width: none;
+    }
+    
+    .services,
+    .cta,
+    .guarantee,
+    .contact {
+        padding: var(--spacing-8) 0;
+    }
+    
+    .whatsapp-float {
+        bottom: var(--spacing-3);
+        right: var(--spacing-3);
+    }
+}
+
+/* Very small screens (iPhone SE, etc.) */
+@media (max-width: 374px) {
+    .container {
+        padding: 0 var(--spacing-2);
+    }
+    
+    .hero-title {
+        font-size: var(--font-size-lg);
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .btn {
+        padding: var(--spacing-2) var(--spacing-3);
+        font-size: var(--font-size-sm);
+        min-height: 40px;
+    }
+    
+    .service-card,
+    .contact-form {
+        padding: var(--spacing-3);
+    }
+    
+    .hero-card {
+        padding: var(--spacing-4);
+    }
+    
+    .whatsapp-float {
+        width: 48px;
+        height: 48px;
+        bottom: var(--spacing-2);
+        right: var(--spacing-2);
+    }
+}
+
+/* High DPI mobile screens */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 767px) {
+    .service-icon,
+    .feature-icon,
+    .contact-icon {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Dark mode support for mobile */
+@media (prefers-color-scheme: dark) and (max-width: 767px) {
+    :root {
+        --white: #1a1a1a;
+        --gray-50: #2a2a2a;
+        --gray-100: #3a3a3a;
+        --gray-200: #4a4a4a;
+        --gray-800: #e5e5e5;
+        --gray-900: #ffffff;
+    }
+    
+    .hero {
+        background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+    }
+    
+    .contact-form {
+        background: var(--gray-100);
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .whatsapp-float {
+        animation: none;
+    }
+    
+    .btn:hover,
+    .service-card:hover,
+    .contact-method:hover {
+        transform: none;
+    }
+    
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Print optimizations */
+@media print {
+    .whatsapp-float,
+    .btn {
+        display: none !important;
+    }
+    
+    .hero {
+        background: none !important;
+        color: black !important;
+    }
+    
+    .cta {
+        background: var(--gray-100) !important;
+        color: black !important;
+    }
+    
+    .contact-form {
+        background: white !important;
+        border: 1px solid #ccc !important;
+    }
+}

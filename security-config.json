@@ -1,0 +1,42 @@
+{
+  "security": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-15",
+    "features": {
+      "headers": {
+        "xFrameOptions": "SAMEORIGIN",
+        "xContentTypeOptions": "nosniff",
+        "xXSSProtection": "1; mode=block",
+        "strictTransportSecurity": "max-age=31536000; includeSubDomains; preload",
+        "contentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://wa.me;"
+      },
+      "rateLimiting": {
+        "enabled": true,
+        "maxRequests": 100,
+        "timeWindow": 60000,
+        "blockDuration": 300000
+      },
+      "fileProtection": {
+        "blockedExtensions": [".htaccess", ".htpasswd", ".ini", ".log", ".sh", ".inc", ".bak", ".sql", ".conf"],
+        "blockedDirectories": [".git", ".env", "node_modules", "vendor"]
+      },
+      "hotlinkProtection": {
+        "enabled": true,
+        "allowedDomains": ["accidentesydefensa.com"]
+      }
+    },
+    "monitoring": {
+      "xssDetection": true,
+      "clickjackingProtection": true,
+      "devToolsDetection": true,
+      "rateLimitMonitoring": true,
+      "suspiciousActivityLogging": true
+    },
+    "compliance": {
+      "gdpr": true,
+      "ccpa": true,
+      "coppa": false,
+      "hipaa": false
+    }
+  }
+}
