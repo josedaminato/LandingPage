@@ -1,4 +1,4 @@
-/* CSS SIMPLE Y DIRECTO - MÓVIL = DESKTOP */
+/* CSS SIMPLE - SIN DUPLICACIONES */
 
 * {
     margin: 0;
@@ -59,7 +59,6 @@ h3 { font-size: 1.5rem; }
 .btn-whatsapp {
     background: #25d366;
     color: #ffffff;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
 .btn-whatsapp:hover {
