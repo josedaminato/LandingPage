@@ -450,6 +450,9 @@ function initServicesCarousel() {
     
     function updateCarousel() {
         const translateX = -currentIndex * 100;
+        
+        // Add smooth transition
+        carouselTrack.style.transition = 'transform 0.5s ease-in-out';
         carouselTrack.style.transform = `translateX(${translateX}%)`;
         
         // Update dots
@@ -471,12 +474,20 @@ function initServicesCarousel() {
         if (currentIndex < totalCards - 1) {
             currentIndex++;
             updateCarousel();
+        } else {
+            // Smooth loop back to start
+            currentIndex = 0;
+            updateCarousel();
         }
     }
     
     function prevSlide() {
         if (currentIndex > 0) {
             currentIndex--;
+            updateCarousel();
+        } else {
+            // Smooth loop to end
+            currentIndex = totalCards - 1;
             updateCarousel();
         }
     }
@@ -547,7 +558,7 @@ function initServicesCarousel() {
             } else {
                 goToSlide(0);
             }
-        }, 5000);
+        }, 4000);
     }
     
     function stopAutoPlay() {
