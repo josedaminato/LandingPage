@@ -607,7 +607,7 @@ function initServicesCarousel() {
     startAutoPlay();
     
     // Pause on hover/touch
-    const carouselContainer = carousel.closest('.carousel-container');
+    const carouselContainer = carouselTrack.closest('.carousel-container');
     if (carouselContainer) {
         carouselContainer.addEventListener('mouseenter', stopAutoPlay);
         carouselContainer.addEventListener('mouseleave', startAutoPlay);
@@ -623,10 +623,12 @@ function initServicesCarousel() {
     // Re-initialize on window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 767) {
-            // Desktop view - destroy carousel
+            // Desktop view - stop auto-play
+            stopAutoPlay();
             return;
         }
-        // Mobile view - carousel already initialized
+        // Mobile view - restart auto-play
+        startAutoPlay();
     });
 }
 
