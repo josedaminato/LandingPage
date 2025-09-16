@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
     initSmoothScrolling();
-    initContactForm();
+    // initContactForm(); // Removed - not used
     initScrollAnimations();
     initGoogleAnalytics();
     initWhatsAppTracking();
@@ -35,56 +35,7 @@ function initSmoothScrolling() {
     });
 }
 
-// Contact form handling (removed - now using direct WhatsApp)
-function initContactForm() {
-    // Form functionality removed - now using direct WhatsApp buttons
-    console.log('Contact form functionality replaced with direct WhatsApp integration');
-}
-
-// Form validation
-function validateForm(data) {
-    const errors = [];
-    
-    if (!data.name || data.name.trim().length < 2) {
-        errors.push('El nombre debe tener al menos 2 caracteres');
-    }
-    
-    if (!data.phone || data.phone.trim().length < 8) {
-        errors.push('El teléfono debe tener al menos 8 dígitos');
-    }
-    
-    if (!data.email || !isValidEmail(data.email)) {
-        errors.push('Ingresa un email válido');
-    }
-    
-    if (errors.length > 0) {
-        showNotification(errors.join('<br>'), 'error');
-        return false;
-    }
-    
-    return true;
-}
-
-// Email validation
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Create WhatsApp message
-function createWhatsAppMessage(data) {
-    return `Hola! Me contacto desde la web de Accidentes y Defensa.
-
-*Datos de contacto:*
-• Nombre: ${data.name}
-• Teléfono: ${data.phone}
-• Email: ${data.email}
-
-*Descripción del caso:*
-${data.case || 'No especificado'}
-
-Me gustaría agendar una consulta para evaluar mi caso. ¡Gracias!`;
-}
+// Contact form functionality removed - now using direct WhatsApp buttons
 
 // Scroll animations
 function initScrollAnimations() {
